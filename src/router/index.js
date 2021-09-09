@@ -26,25 +26,33 @@ const routes = [
     path: "/panama",
     name: "Panama",
     component: () =>
-      import(/* webpackChunkName: "brazil" */ "../views/Panama.vue"),
+      import(/* webpackChunkName: "panama" */ "../views/Panama.vue"),
   },
   {
     path: "/jamaica",
     name: "Jamaica",
     component: () =>
-      import(/* webpackChunkName: "brazil" */ "../views/Jamaica.vue"),
+      import(/* webpackChunkName: "jamaica" */ "../views/Jamaica.vue"),
   },
   {
     path: "/hawaii",
     name: "Hawaii",
     component: () =>
-      import(/* webpackChunkName: "brazil" */ "../views/Hawaii.vue"),
+      import(/* webpackChunkName: "hawaii" */ "../views/Hawaii.vue"),
+  },
+  {
+    // You only need to change the attribute path to change the name in all the routes
+    path: "/places-to-visit/:id",
+    name: "destination.show",
+    component: () => import("../views/DestinationShow.vue"),
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  // The linkActiveClass allows you to add a class to the active route
+  linkActiveClass: "vue-school-active-link",
 });
 
 export default router;
