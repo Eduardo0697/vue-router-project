@@ -31,11 +31,17 @@ export default {
   },
   async created() {
     this.initData();
-    // To react to param changes we use watch
-    this.$watch(
-      () => this.$route.params, // function that returns what we want to watch for changes
-      this.initData
-    );
+    // // To react to param changes we use watch
+    // this.$watch(
+    //   () => this.$route.params, // function that returns what we want to watch for changes
+    //   this.initData
+    //
+    // To the second approach we will use vue keys, this is because every time a key changes in a component, vue will
+    // destroy the currently rendered component that the key is applied to and then re-render form scratch
+    // So we can assign the router-view a key attribute with the value of the route-path in App.js
+    // The downside is that it does take a little more js computation a the component is completely destroyed and re-rendered
+
+
   },
 };
 </script>
