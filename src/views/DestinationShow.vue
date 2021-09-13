@@ -10,16 +10,20 @@
 
 <script>
 export default {
+  props: {
+    id: { type: Number, required: true },
+    propTest: { type: String },
+  },
   data() {
     return {
       destination: null,
     };
   },
-  computed: {
-    destinationId() {
-      return parseInt(this.$route.params.id);
-    },
-  },
+  // computed: {
+    // destinationId() {
+    //   return parseInt(this.$route.params.id);
+    // },
+  // },
   methods: {
     async initData() {
       // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
