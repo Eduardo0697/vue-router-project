@@ -6,10 +6,28 @@
       <p>{{ destination.description }}</p>
     </div>
   </section>
+  <section v-if="destination" class="experiences">
+    <h2>Top Experiences in {{ destination.name }}</h2>
+    <div class="cards">
+      <router-link
+        v-for="experience in destination.experiences"
+        :key="experience.slug"
+        :to="{
+          name: 'experience.show',
+          params: { experienceSlug: experience.slug },
+        }"
+      >
+        <ExperienceCard :experience="experience" />
+      </router-link>
+    </div>
+  </section>
 </template>
 
 <script>
+import ExperienceCard from "../components/ExperienceCard";
+
 export default {
+  components: { ExperienceCard },
   props: {
     id: { type: Number, required: true },
     propTest: { type: String },
@@ -20,9 +38,9 @@ export default {
     };
   },
   // computed: {
-    // destinationId() {
-    //   return parseInt(this.$route.params.id);
-    // },
+  // destinationId() {
+  //   return parseInt(this.$route.params.id);
+  // },
   // },
   methods: {
     async initData() {
@@ -44,8 +62,6 @@ export default {
     // destroy the currently rendered component that the key is applied to and then re-render form scratch
     // So we can assign the router-view a key attribute with the value of the route-path in App.js
     // The downside is that it does take a little more js computation a the component is completely destroyed and re-rendered
-
-
   },
 };
 </script>
