@@ -9,7 +9,7 @@ const routes = [
   },
   {
     // You only need to change the attribute path to change the name in all the routes
-    path: "/places-to-visit/:id/:slug",
+    path: "/destination/:id/:slug",
     name: "destination.show",
     component: () =>
       import(
@@ -17,12 +17,15 @@ const routes = [
       ),
     // props: true,
     props: (route) => ({ ...route.params, id: parseInt(route.params.id), propTest: 'Test' }),
-  },
-  {
-    path: "/destination/:id/:slug/:experienceSlug",
-    name: "experience.show",
-    component: () => import("../views/ExperienceShow.vue"),
-    props: (route) => ({ ...route.params, id: parseInt(route.params.id) }),
+    children: [ // Defining children we make the route a child of the DestinationShow page,
+      {
+        // path: "/destination/:id/:slug/:experienceSlug", // It's already scoped to it's parent path, so we don't need all the route
+        path: ":experienceSlug",
+        name: "experience.show",
+        component: () => import("../views/ExperienceShow.vue"),
+        props: (route) => ({ ...route.params, id: parseInt(route.params.id) }),
+      },
+    ],
   },
 ];
 
