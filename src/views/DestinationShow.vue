@@ -1,28 +1,30 @@
 <template>
-  <section v-if="destination" class="destination">
-    <h1>{{ destination.name }}</h1>
-    <GoBack />
-    <div class="destination-details">
-      <img :src="`/images/${destination.image}`" :alt="destination.name" />
-      <p>{{ destination.description }}</p>
-    </div>
-  </section>
-  <section v-if="destination" class="experiences">
-    <h2>Top Experiences in {{ destination.name }}</h2>
-    <div class="cards">
-      <router-link
-        v-for="experience in destination.experiences"
-        :key="experience.slug"
-        :to="{
+<!--  To apply transitions all elements have to be wrapped in one single element-->
+  <div>
+    <section v-if="destination" class="destination">
+      <h1>{{ destination.name }}</h1>
+      <GoBack />
+      <div class="destination-details">
+        <img :src="`/images/${destination.image}`" :alt="destination.name" />
+        <p>{{ destination.description }}</p>
+      </div>
+    </section>
+    <section v-if="destination" class="experiences">
+      <h2>Top Experiences in {{ destination.name }}</h2>
+      <div class="cards">
+        <router-link
+                v-for="experience in destination.experiences"
+                :key="experience.slug"
+                :to="{
           name: 'experience.show',
           params: { experienceSlug: experience.slug },
         }"
-      >
-        <ExperienceCard :experience="experience" />
-      </router-link>
-    </div>
-  </section>
-  <router-view />
+        >
+          <ExperienceCard :experience="experience" />
+        </router-link>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -36,9 +38,7 @@ export default {
     propTest: { type: String },
   },
   data() {
-    return {
-      destination: null,
-    };
+    return { destination: null };
   },
   // computed: {
   // destinationId() {
