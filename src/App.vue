@@ -1,11 +1,12 @@
 <template>
   <TheNavigation></TheNavigation>
   <div class="container">
-    <router-view v-slot="{ Component }" mode="out-in">
-      <transition name="slide">
-        <component :is="Component" :key="$route.path"></component>
-      </transition>
-    </router-view>
+<!--    <router-view v-slot="{ Component }">-->
+<!--      <transition name="fade" mode="out-in">-->
+<!--        <component :is="Component" :key="$route.path"></component>-->
+<!--      </transition>-->
+<!--    </router-view>-->
+    <router-view :key="$route.path"></router-view>
   </div>
 </template>
 
@@ -17,13 +18,12 @@ export default {
 </script>
 
 <style>
-.slide-enter-active,
-.slide-leave-active {
-  transition: opacity 1s, transform 1s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
 }
-.slide-enter-from,
-.slide-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
-  transform: translateX(-30%);
 }
 </style>

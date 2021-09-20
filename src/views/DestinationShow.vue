@@ -1,5 +1,5 @@
 <template>
-<!--  To apply transitions all elements have to be wrapped in one single element-->
+  <!--  To apply transitions all elements have to be wrapped in one single element-->
   <div>
     <section v-if="destination" class="destination">
       <h1>{{ destination.name }}</h1>
@@ -23,6 +23,7 @@
           <ExperienceCard :experience="experience" />
         </router-link>
       </div>
+      <router-view></router-view>
     </section>
   </div>
 </template>
