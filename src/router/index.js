@@ -58,6 +58,15 @@ const router = createRouter({
   routes,
   // The linkActiveClass allows you to add a class to the active route
   linkActiveClass: "vue-school-active-link",
+  scrollBehavior(to, from, savedPosition) {
+    return (
+      savedPosition ||
+      new Promise((resolve) => {
+        setTimeout(() => resolve({ top: 0, behavior: "smooth" }), 300);
+      })
+    );
+    // return{ top:null, left: null, behavior: null }
+  },
 });
 
 export default router;
