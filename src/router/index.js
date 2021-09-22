@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import sourceData from "../data.json";
 
 const routes = [
   {
@@ -16,8 +17,26 @@ const routes = [
         /* webpackChunkName: "destination" */ "../views/DestinationShow.vue"
       ),
     // props: true,
-    props: (route) => ({ ...route.params, id: parseInt(route.params.id), propTest: 'Test' }),
-    children: [ // Defining children we make the route a child of the DestinationShow page,
+    props: (route) => ({
+      ...route.params,
+      id: parseInt(route.params.id),
+      propTest: "Test",
+    }),
+    beforeEnter(to) {
+      const exists = sourceData.destinations.find(
+        (destination) => destination.id === parseInt(to.params.id)
+      );
+      if (!exists)
+        return {
+          name: "NotFound",
+          // allows keeping the URL while rendering a differente page
+          params: { pathMatch: to.path.split("/").slice(1) },
+          query: to.query,
+          hash: to.hash,
+        };
+    },
+    children: [
+      // Defining children we make the route a child of the DestinationShow page,
       {
         // path: "/destination/:id/:slug/:experienceSlug", // It's already scoped to it's parent path, so we don't need all the route
         path: ":experienceSlug",
@@ -28,8 +47,8 @@ const routes = [
     ],
   },
   {
-    path: '/:pathMatch(.*)*',
-    name: 'NotFound',
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
     component: () => import("../views/NotFound.vue"),
   },
 ];
