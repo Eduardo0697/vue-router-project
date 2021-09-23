@@ -9,6 +9,19 @@ const routes = [
     component: Home,
   },
   {
+    path: "/protected",
+    name: "protected",
+    component: () => import("../views/Protected.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("../views/Login.vue"),
+  },
+  {
     // You only need to change the attribute path to change the name in all the routes
     path: "/destination/:id/:slug",
     name: "destination.show",
@@ -67,6 +80,13 @@ const router = createRouter({
     );
     // return{ top:null, left: null, behavior: null }
   },
+});
+// Global Navigation guard, every time a routes changes this function is fired
+router.beforeEach((to) => {
+  if (to.meta.requiresAuth && !window.user) {
+    // need to login if it's nos already logged in
+    return { name: "login" };
+  }
 });
 
 export default router;
