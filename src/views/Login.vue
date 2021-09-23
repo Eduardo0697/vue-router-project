@@ -23,8 +23,9 @@ export default {
     login() {
       // Auth user against AIP
       window.user = this.username;
+      const redirectPath = this.$route.query.redirect || '/protected'
       // We redirect the user to where we want
-      this.$router.push({ name: "protected" });
+      this.$router.push(redirectPath);
     },
   },
 };

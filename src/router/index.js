@@ -22,6 +22,14 @@ const routes = [
     component: () => import("../views/Login.vue"),
   },
   {
+    path: "/invoices",
+    name: "invoices",
+    component: () => import("../views/Invoices.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     // You only need to change the attribute path to change the name in all the routes
     path: "/destination/:id/:slug",
     name: "destination.show",
@@ -85,7 +93,7 @@ const router = createRouter({
 router.beforeEach((to) => {
   if (to.meta.requiresAuth && !window.user) {
     // need to login if it's nos already logged in
-    return { name: "login" };
+    return { name: "login", query: { redirect: to.fullPath } };
   }
 });
 
